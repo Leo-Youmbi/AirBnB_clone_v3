@@ -4,6 +4,7 @@ from api.v1.views import app_views
 from flask import jsonify
 import models
 
+
 @app_views.route('/status', methods=['GET'])
 def status_view():
     """Returns Successful status"""
