@@ -113,3 +113,22 @@ class TestFileStorage(unittest.TestCase):
         with open("file.json", "r") as f:
             js = f.read()
         self.assertEqual(json.loads(string), json.loads(js))
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_count_no_class_specified(self):
+        """Should return the total number of objects when no class is specified"""
+        count = models.storage.count(State)
+        obj1 = State(name="California")
+        obj2 = State(name="Douala")
+        obj1.save()
+        obj2.save()
+        self.assertEqual(models.storage.count(State), count + 2)
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_retrieve_valid_object(self):
+        """Retrieve an object with a valid class and id"""
+        obj = State()
+        state_id = obj.id
+        models.storage.new(obj)
+        result = models.storage.get(State, state_id)
+        self.assertEqual(result, obj)
