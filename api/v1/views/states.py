@@ -44,4 +44,4 @@ def post_state():
     else:
         new_state = State(**data)
         new_state.save()
-        return jsonify(new_state.to_dict()), 202
+        return jsonify(new_state.to_dict()), 201
