@@ -3,8 +3,6 @@
 from api.v1.views import app_views
 from flask import abort, jsonify, make_response, request
 from models import storage
-from models.state import State
-from models.city import City
 from models.amenity import Amenity
 
 
@@ -22,7 +20,7 @@ def get_amenities():
 def get_amenity(amenity_id):
     """Gets an Amenity objects"""
     amenity = storage.get(Amenity, amenity_id)
-    if not amenity:
+    if amenity is None:
         abort(404)
     return jsonify(amenity.to_dict())
 
@@ -32,7 +30,7 @@ def get_amenity(amenity_id):
 def delete_amenity(amenity_id):
     """Deletes a Amenity object"""
     amenity = storage.get(Amenity, amenity_id)
-    if not amenity:
+    if amenity is None:
         abort(404)
     amenity.delete()
     storage.save()
@@ -58,7 +56,7 @@ def create_amenities():
 def update_amenity(amenity_id):
     """Updates a Amenity"""
     amenity = storage.get(Amenity, amenity_id)
-    if not amenity:
+    if amenity is None:
         abort(404)
     amenity_data = request.get_json()
     if not amenity_data:
