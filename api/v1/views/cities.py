@@ -75,6 +75,7 @@ def delete_city(city_id):
     city_id -- city id
     Return: empty json object
     """
+
     city = storage.get(City, city_id)
     if city is None:
         abort(404)
