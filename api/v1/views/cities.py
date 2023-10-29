@@ -45,7 +45,6 @@ def create_cities(state_id):
 
     city = City(**city_data)
     setattr(city, "state_id", state_id)
-    print([city.to_dict()])
     city.save()
     return jsonify(city.to_dict()), 201
 
@@ -81,7 +80,7 @@ def delete_city(city_id):
     if city is None:
         abort(404)
 
-    storage.delete(city)
+    city.delete()
     storage.save()
     return make_response(jsonify({}), 200)
 
@@ -105,5 +104,5 @@ def update_city(city_id):
         return make_response(jsonify({"error": "Not a JSON"}), 400)
 
     city.name = city_data["name"]
-    city.save()
+    storage.save()
     return jsonify(city.to_dict()), 200
