@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+"""API Module for User endpoints"""
 from api.v1.views import app_views
 from flask import abort, jsonify, make_response, request
 from models import storage
