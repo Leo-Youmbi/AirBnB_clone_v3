@@ -116,7 +116,9 @@ class TestFileStorage(unittest.TestCase):
 
     @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
     def test_count_no_class_specified(self):
-        """Should return the total number of objects when no class is specified"""
+        """
+        Should return the total number of objects when no class is specified
+        """
         count = models.storage.count(State)
         obj1 = State(name="California")
         obj2 = State(name="Douala")

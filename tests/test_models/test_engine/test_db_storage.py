@@ -89,7 +89,10 @@ class TestFileStorage(unittest.TestCase):
 
     @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def test_count_without_arguments(self):
-        """Should return the number of objects in the database when called without arguments"""
+        """
+        Should return the number of objects in the database when
+        called without arguments
+        """
         obj1 = User()
         obj2 = User()
         obj3 = User()
