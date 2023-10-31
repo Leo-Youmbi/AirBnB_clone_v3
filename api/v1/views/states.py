@@ -29,14 +29,14 @@ def get_states():
     return jsonify(all_states)
 
 
-@app_views.route('states/<state_id>', methods=['GET'],
+@app_views.route('states/<string:state_id>', methods=['GET'],
                  strict_slashes=False)
 def get_state(state_id):
     """Returns the state having the id"""
     return jsonify(serialize_to_json(storage.get(State, state_id)))
 
 
-@app_views.route('states/<state_id>', methods=['DELETE'],
+@app_views.route('states/<string:state_id>', methods=['DELETE'],
                  strict_slashes=False)
 def delete_state(state_id):
     """
@@ -57,7 +57,7 @@ def delete_state(state_id):
     return jsonify({}), 200
 
 
-@app_views.route('states/<state_id>', methods=['PUT'],
+@app_views.route('states/<string:state_id>', methods=['PUT'],
                  strict_slashes=False)
 def update_state(state_id):
     """
