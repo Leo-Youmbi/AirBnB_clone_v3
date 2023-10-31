@@ -129,10 +129,10 @@ def update_place(place_id):
         or an error response if data is invalid or if the place is not found.
     """
     place = storage.get(Place, place_id)
-    if not place:
+    if place is None:
         abort(404)
     place_data = request.get_json()
-    if not place_data:
+    if place_data is None:
         return make_response(jsonify({"error": "Not a JSON"}), 400)
 
     keys_to_ignore = ['id', 'user_id', 'city_id', 'created_at', 'updated_at']
