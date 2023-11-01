@@ -10,6 +10,7 @@ from models.amenity import Amenity
 
 storage_type = os.getenv("HBNB_TYPE_STORAGE")
 
+
 def serialize_to_json(obj):
     """
     Serializes the given object to a JSON-compatible dictionary representation.
@@ -24,25 +25,31 @@ def serialize_to_json(obj):
     return obj.to_dict() if obj else abort(404)
 
 
-@app_views.route('/places/<string:place_id>/amenities', methods=['GET'], strict_slashes=False)
+@app_views.route('/places/<string:place_id>/amenities',
+                 methods=['GET'], strict_slashes=False)
 def get_places_amenities(place_id):
     """
-    Retrieves amenities associated with a specific place by ID and returns a JSON response.
+    Retrieves amenities associated with a specific place by ID
+    and returns a JSON response.
 
     Args:
         place_id (string): The ID of the place to retrieve amenities from.
 
     Returns:
-        Response: A JSON response containing a list of amenities for the specified place
-        or a 404 error if the place is not found.
+        Response: A JSON response containing a list of amenities for the
+        specified place or a 404 error if the place is not found.
     """
     place = storage.get(Place, place_id)
     if place is None:
         abort(404)
     if storage_type is 'db':
-        place_amenities = [serialize_to_json(amenity) for amenity in place.amenities]
+        place_amenities = [
+            serialize_to_json(amenity) for amenity in place.amenities
+            ]
     else:
-        place_amenities = [serialize_to_json(amenity) for amenity in place.amenity_ids]
+        place_amenities = [
+            serialize_to_json(amenity) for amenity in place.amenity_ids
+            ]
     return jsonify(place_amenities), 200
 
 
@@ -80,7 +87,8 @@ def delete_places_amenities(place_id, amenity_id):
                  methods=['POST'], strict_slashes=False)
 def link_amenities_places(place_id, amenity_id):
     """
-    Links an amenity to a place based on their respective IDs and returns a JSON response.
+    Links an amenity to a place based on their respective IDs
+    and returns a JSON response.
 
     Args:
         place_id (string): The ID of the place.
